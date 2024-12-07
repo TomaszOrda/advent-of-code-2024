@@ -4,15 +4,9 @@ Solutions are named as follows Day_{number of the day}_{which part of the proble
 
 Unrevised solutions are placed in a folder named old.
 
-1 ☆ ★<br>
-2 ☆ ★<br>
-3 ☆ ★<br>
-4 ☆ ★<br>
-5 ☆ ★<br>
-6 ☆ ★<br>
-7 <br>
-8 <br>
-9 <br>
-. <br>
-. <br>
-. <br>
+|            |       |       |       |       |       |       |       |
+|:-----------|-------|-------|-------|-------|-------|-------|-------|
+| **Week 1** | ☆ ⭐ | ☆ ⭐ | ☆ ⭐ | ☆ ⭐ | ☆ ⭐ | ☆ ⭐ | ☆ ⭐ |
+| **Week 2** |  |  |  |  |  |  |  |
+| **Week 3** |  |  |  |  |  |  |  |
+| **Week 4** |  |  |  |  |  |  |  |
