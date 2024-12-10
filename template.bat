@@ -12,6 +12,3 @@ echo     format!("{:?}",input) >> src\day%DayNumber%part1.rs
 echo } >> src\day%DayNumber%part1.rs
 
 copy src\day%DayNumber%part1.rs src\day%DayNumber%part2.rs
-
-:: Output success message
-echo Files created and copied successfully.
