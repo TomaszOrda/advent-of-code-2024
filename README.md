@@ -1,10 +1,10 @@
-A record of my solutions for 2024 Advent Of Code.
+A record of my solutions for [2024 Advent Of Code][https://adventofcode.com/].
 
-Currently a little behind on uploading the solutions. Will do in a couple days!
+Solutions for each day and task are in separate files. Sumbmited (unoptimized) solutions are placed in a folder named old (soon to be added).
 
-Solutions are named as follows Day_{number of the day}_{which part of the problem it is}{_R if a solution was revised by me some time after submiting}
+To run the solution input name of the file in mod_day_and_task! macro inside main.rs.
 
-Unrevised solutions are placed in a folder named old.
+Data for each task can be accessed through the site.
 
 |            | 日 | 月 | 火 | 水 | 木 | 金 | 土 |
 |:-----------|-------|-------|-------|-------|-------|-------|-------|
