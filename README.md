@@ -1,4 +1,4 @@
-A record of my solutions for [2024 Advent Of Code][https://adventofcode.com/].
+A record of my solutions for 2024 [Advent Of Code](https://adventofcode.com/ "AoC").
 
 Solutions for each day and task are in separate files. Sumbmited (unoptimized) solutions are placed in a folder named old (soon to be added).
 
