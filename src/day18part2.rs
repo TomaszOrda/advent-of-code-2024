@@ -41,8 +41,7 @@ fn can_reach_end(grid: &Grid<char>, start: (i32, i32), end: (i32, i32)) -> bool{
             let (x,y) = (position.0 + dir.0, position.1 + dir.1);
             if let Some(&map_element) = grid.get(x,y){
                 if map_element == '.' && !reachable.get(x,y).unwrap(){
-                    *reachable.get_mut(x, y).unwrap() = true;
-                    stack.insert(0, (x,y))
+                    stack.push( (x,y))
                 }
             }
         }
@@ -64,6 +63,7 @@ pub fn solution(input: String) -> String {
     let map = vec![vec!['.'; width]; height];
     let mut grid = Grid::new(map);
     let mut next_byte = 0;
+    //I did have read that binsearch would work so well in here. However I am a bit lazy.
     while can_reach_end(&grid, (0,0), (width as i32 -1, height as i32 -1)){
         let byte_coord = &bytes_coords[next_byte];
         next_byte +=1;
