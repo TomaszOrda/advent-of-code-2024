@@ -10,5 +10,5 @@ Data for each task can be accessed through the site.
 |:-----------|-------|-------|-------|-------|-------|-------|-------|
 | **Week 1** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
 | **Week 2** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
-| **Week 3** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|||||
+| **Week 3** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐||||
 | **Week 4** ||||||||
