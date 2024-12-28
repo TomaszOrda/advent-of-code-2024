@@ -6,6 +6,8 @@ To run the solution input name of the file in mod_day_and_task! macro inside mai
 
 Data for each task can be accessed through the site.
 
+50/50⭐
+
 |            | 日 | 月 | 火 | 水 | 木 | 金 | 土 |
 |:-----------|-------|-------|-------|-------|-------|-------|-------|
 | **Week 1** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
