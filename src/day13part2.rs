@@ -28,11 +28,11 @@ pub fn solution(input: String) -> String {
         .lines()
         .filter(
             |line|
-            line.len()>0)
+            !line.is_empty())
         .map(
             |line| 
             line.split_whitespace()
-                .map(|w| trim(w))
+                .map(trim)
                 .collect::<Vec<&str>>())
         .map(
             |words|
