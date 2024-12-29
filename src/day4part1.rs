@@ -5,7 +5,7 @@ fn count_xmas_on_id(stream:&[Vec<char>], id:(i32, i32)) -> u32{
     vectors.iter()
             .filter(
                 |&v| 
-                stream.get((id.0+1*v.0) as usize).unwrap_or(&vec![]).get((id.1+1*v.1) as usize).unwrap_or(&'!') == &'M' &&
+                stream.get((id.0+  v.0) as usize).unwrap_or(&vec![]).get((id.1+  v.1) as usize).unwrap_or(&'!') == &'M' &&
                 stream.get((id.0+2*v.0) as usize).unwrap_or(&vec![]).get((id.1+2*v.1) as usize).unwrap_or(&'!') == &'A' &&
                 stream.get((id.0+3*v.0) as usize).unwrap_or(&vec![]).get((id.1+3*v.1) as usize).unwrap_or(&'!') == &'S')
             .count() as u32
