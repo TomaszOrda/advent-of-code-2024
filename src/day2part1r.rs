@@ -1,14 +1,14 @@
 use std::ops::Neg;
-fn looks_like_decreasing_report(report: &Vec<i32>) -> bool{
+fn looks_like_decreasing_report(report: &[i32]) -> bool{
     report[0]>report[1]
 }
 
-fn is_safe(report: &Vec<i32>, id: usize) -> bool{
+fn is_safe(report: &[i32], id: usize) -> bool{
     if report.len()<id+2{
         return true
     }
     let difference = report[id+1] - report[id];
-    if difference >= 1 && difference <= 3 {
+    if (1..=3).contains(&difference) {
         is_safe(report, id+1)
     }else{
         false
