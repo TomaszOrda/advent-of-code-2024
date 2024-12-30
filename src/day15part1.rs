@@ -34,11 +34,11 @@ impl Map {
         match self.grid[new_pos.0][new_pos.1] {
             '.' => {
                 self.grid[new_pos.0][new_pos.1] = 'O';
-                return Some(())
+                Some(())
             },
             'O' => self.push_box(new_pos, direction),
             '#' => {
-                return None
+                None
             },
             _   => panic!("Unexpected token on the map!")
         }
@@ -48,10 +48,7 @@ impl Map {
         self.grid[self.robot.0][self.robot.1] = '.';
         match self.grid[new_pos.0][new_pos.1] {
             '.' => self.robot = new_pos,
-            'O' => match self.push_box(new_pos, direction){
-                Some(()) => self.robot = new_pos,
-                None => ()
-            },
+            'O' => if let Some(()) = self.push_box(new_pos, direction) {self.robot = new_pos},
             '#' => (),
             _   => panic!("Unexpected token on the map!")
         }
@@ -63,13 +60,12 @@ impl Map {
     fn sum_of_gps_coordinates(&self) -> u32{
         self.grid.iter()
                  .enumerate()
-                 .map(
+                 .flat_map(
                     |line| 
                     line.1.iter()
                           .enumerate()
                           .filter(|c| c.1==&'O')
                           .map(move |c| Self::gps_coordinate(line.0, c.0)))
-                 .flatten()
                  .sum::<u32>()
     }
 }
@@ -85,6 +81,6 @@ pub fn solution(input: String) -> String {
         robot: (robot_flat / grid[0].len() , robot_flat % grid[0].len()),
         grid,
     };
-    moves.iter().for_each(|direction| map.apply_move(&direction));
+    moves.iter().for_each(|direction| map.apply_move(direction));
     format!("{:?}",map.sum_of_gps_coordinates()) 
 } 
