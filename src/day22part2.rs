@@ -69,7 +69,7 @@ pub fn solution(input: String) -> String {
             |price_changes|
             price_changes
                 .windows(4)
-                .map(|v| PriceChangeWindow::new(v)))
+                .map(PriceChangeWindow::new))
         .zip(buyers_prices)
         .map(
             |(windows, prices)|
@@ -81,7 +81,7 @@ pub fn solution(input: String) -> String {
         .into_iter()
         .fold(HashMap::new(), merge_hashmaps_sum);
 
-    format!("{:?}",global_sequence_values.iter().map(|(_seq, value)| value).max().unwrap()) 
+    format!("{:?}",global_sequence_values.values().max().unwrap()) 
 } 
 #[test]
 fn test_mix() {
