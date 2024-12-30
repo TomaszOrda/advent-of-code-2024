@@ -1,10 +1,10 @@
 use std::{collections::HashMap, io};
 #[derive(Debug, Clone)]
 enum Wire{
-    XOR(String, String),
-    OR(String, String),
-    AND(String, String),
-    VAL(bool)
+    Xor(String, String),
+    Or(String, String),
+    And(String, String),
+    Val(bool)
 }
 struct Circuit{
     connections: HashMap<String, Wire>
@@ -13,10 +13,10 @@ impl Circuit{
     fn eval(&self, wire_name: &String) -> bool{
         let wire = self.connections.get(wire_name).unwrap();
         match wire{
-            Wire::AND(w1, w2) => self.eval(&w1) && self.eval(&w2),
-            Wire::OR (w1, w2) => self.eval(&w1) || self.eval(&w2),
-            Wire::XOR(w1, w2) => self.eval(&w1) ^  self.eval(&w2),
-            Wire::VAL(value) => *value
+            Wire::And(w1, w2) => self.eval(w1) && self.eval(w2),
+            Wire::Or (w1, w2) => self.eval(w1) || self.eval(w2),
+            Wire::Xor(w1, w2) => self.eval(w1) ^  self.eval(w2),
+            Wire::Val(value) => *value
         }
     }
     
@@ -29,7 +29,7 @@ impl Circuit{
 
     fn load(&mut self, var: char, val:u64){
         let val:Vec<bool> = (0..64).map(|shift| ((val>>shift) %2) == 1 ).collect();
-        self.connections.iter_mut().filter(|x| x.0.chars().next().unwrap()==var).for_each(|(key, value)| *value=Wire::VAL(val[key[1..=2].parse::<usize>().unwrap()]) );
+        self.connections.iter_mut().filter(|x| x.0.chars().next().unwrap()==var).for_each(|(key, value)| *value=Wire::Val(val[key[1..=2].parse::<usize>().unwrap()]) );
     }
     fn get_variable(&self, v:char) -> Vec<bool>{
         let mut output_wires = self.connections.iter().filter(|wire| wire.0.starts_with(v)).map(|wire| wire.0).collect::<Vec<&String>>();
@@ -99,9 +99,9 @@ impl Circuit{
                 |(_name, wire)| 
                 {
                     match wire{
-                        Wire::AND(a,b) => a == input || b == input,
-                        Wire::OR (a,b) => a == input || b == input,
-                        Wire::XOR(a,b) => a == input || b == input, 
+                        Wire::And(a,b) => a == input || b == input,
+                        Wire::Or (a,b) => a == input || b == input,
+                        Wire::Xor(a,b) => a == input || b == input, 
                         _ => false
                     }
                 })
@@ -110,9 +110,9 @@ impl Circuit{
     }
     fn parent_wires(&self, input:&String)-> Vec<String>{
         match self.connections.get(input).unwrap(){
-            Wire::AND(a,b) => vec![a.to_string(),b.to_string()],
-            Wire::OR (a,b) => vec![a.to_string(),b.to_string()],
-            Wire::XOR(a,b) => vec![a.to_string(),b.to_string()], 
+            Wire::And(a,b) => vec![a.to_string(),b.to_string()],
+            Wire::Or (a,b) => vec![a.to_string(),b.to_string()],
+            Wire::Xor(a,b) => vec![a.to_string(),b.to_string()], 
             _ => vec![]
         }
     }
@@ -131,7 +131,7 @@ pub fn solution(input: String) -> String {
         .map(
             |line|
             line.split(": ").collect::<Vec<&str>>())
-        .map(|line| (line[0].to_string(), Wire::VAL(line[1]=="1")));
+        .map(|line| (line[0].to_string(), Wire::Val(line[1]=="1")));
     let operations = input
         .lines()
         .skip_while(|line| !line.contains("->"))
@@ -145,9 +145,9 @@ pub fn solution(input: String) -> String {
                 let res = line[4].to_string();
                 let op = line[1];
                 (res, match op{
-                    "AND" => Wire::AND(arg1, arg2),
-                    "OR"  => Wire::OR (arg1, arg2),
-                    "XOR" => Wire::XOR(arg1, arg2),
+                    "AND" => Wire::And(arg1, arg2),
+                    "OR"  => Wire::Or (arg1, arg2),
+                    "XOR" => Wire::Xor(arg1, arg2),
                     _ => panic!("Unknown operation {}", op)
                 })
             });

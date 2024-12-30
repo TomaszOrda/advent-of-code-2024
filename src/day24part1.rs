@@ -1,18 +1,18 @@
 use std::collections::HashMap;
 #[derive(Debug)]
 enum Wire{
-    XOR(String, String),
-    OR(String, String),
-    AND(String, String),
-    VAL(bool)
+    Xor(String, String),
+    Or(String, String),
+    And(String, String),
+    Val(bool)
 }
 fn eval(wire_name: &String, circuit: &HashMap<String, Wire>) -> bool{
     let wire = circuit.get(wire_name).unwrap();
     match wire{
-        Wire::AND(w1, w2) => eval(&w1, circuit) && eval(&w2, circuit),
-        Wire::OR(w1, w2) => eval(&w1, circuit) || eval(&w2, circuit),
-        Wire::XOR(w1, w2) => eval(&w1, circuit) ^ eval(&w2, circuit),
-        Wire::VAL(value) => *value
+        Wire::And(w1, w2) => eval(w1, circuit) && eval(w2, circuit),
+        Wire::Or(w1, w2) => eval(w1, circuit) || eval(w2, circuit),
+        Wire::Xor(w1, w2) => eval(w1, circuit) ^ eval(w2, circuit),
+        Wire::Val(value) => *value
     }
 }
 
@@ -23,7 +23,7 @@ pub fn solution(input: String) -> String {
         .map(
             |line|
             line.split(": ").collect::<Vec<&str>>())
-        .map(|line| (line[0].to_string(), Wire::VAL(line[1]=="1")));
+        .map(|line| (line[0].to_string(), Wire::Val(line[1]=="1")));
     let operations = input
         .lines()
         .skip_while(|line| !line.contains("->"))
@@ -37,9 +37,9 @@ pub fn solution(input: String) -> String {
                 let res = line[4].to_string();
                 let op = line[1];
                 (res, match op{
-                    "AND" => Wire::AND(arg1, arg2),
-                    "OR"  => Wire::OR (arg1, arg2),
-                    "XOR" => Wire::XOR(arg1, arg2),
+                    "AND" => Wire::And(arg1, arg2),
+                    "OR"  => Wire::Or (arg1, arg2),
+                    "XOR" => Wire::Xor(arg1, arg2),
                     _ => panic!("Unknown operation {}", op)
                 })
             });
