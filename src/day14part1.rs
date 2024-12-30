@@ -71,8 +71,5 @@ pub fn solution(input: String) -> String {
                             |acc, v| 
                                 acc.iter().zip(v).map(|(x,y)| x+y).collect::<Vec<u32>>())
                          .iter()
-                         .fold(
-                            1, 
-                            |acc, q| 
-                                acc * q))
+                         .product::<u32>())
 } 

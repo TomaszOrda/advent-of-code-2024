@@ -37,8 +37,8 @@ fn contains_tree(grid: &str, _width:usize) -> bool{
     //         width-3, 
     //         width-3)).unwrap(); //13s
     let re = Regex::new(
-        &format!(r"########")).unwrap(); //385ms Ill take it. It is post factum of finding out how the tree looks like
-    re.is_match(&grid)
+        &r"########".to_string() ).unwrap(); //385ms Ill take it. It is post factum of finding out how the tree looks like
+    re.is_match(grid)
 }
 
 pub fn solution(input: String) -> String { 
