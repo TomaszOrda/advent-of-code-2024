@@ -25,7 +25,7 @@ pub fn solution(input: String) -> String {
             .unwrap()
             .split(", ")
             .collect::<Vec<&str>>();
-    towels.sort_by(|a,b| b.len().cmp(&a.len()));
+    towels.sort_by_key(|b| std::cmp::Reverse(b.len()));
     //by removing redundancy the recursion does not branch as much
     let towels = towels.iter().enumerate().filter(|towel| !is_reundant(towel.0, &towels)).map(|towel| *towel.1).collect::<Vec<&str>>();
     let designs = input
