@@ -28,10 +28,10 @@ fn directional_pad_to_coords(key:char) -> (u32, u32){
 }
 
 fn all_sequences(seq_a: Vec<char>, seq_b: Vec<char>) -> Vec<Vec<char>>{
-    if seq_a.len() == 0{
+    if seq_a.is_empty(){
         return vec![seq_b]
     }
-    if seq_b.len() == 0{
+    if seq_b.is_empty(){
         return vec![seq_a]
     }
     let mut left: Vec<Vec<char>> = all_sequences(seq_a[1..].to_vec(), seq_b.clone()).iter_mut().map(|v| {v.insert(0, seq_a[0]); v.clone()}).collect();
@@ -45,7 +45,7 @@ fn panic_inducing_sequence(coords_start: (u32, u32), coords_panic: (u32, u32), s
         return true
     }
     match sequence[0]{
-        '>' => return false,
+        '>' => false,
         '<' => panic_inducing_sequence((coords_start.0-1, coords_start.1  ), coords_panic, &sequence[1..] ),
         'v' => panic_inducing_sequence((coords_start.0  , coords_start.1+1), coords_panic, &sequence[1..] ),
         '^' => panic_inducing_sequence((coords_start.0  , coords_start.1-1), coords_panic, &sequence[1..] ),
@@ -75,7 +75,7 @@ fn vailable_sequences(start:char, end:char) -> Vec<Vec<char>>{
             .collect(), 
         std::iter::repeat(dir_y)
             .take(y_distance)
-            .collect()).iter().map(|seq| seq.into_iter().chain(std::iter::once(&'A')).copied().collect::<Vec<char>>()).collect::<Vec<Vec<char>>>();
+            .collect()).iter().map(|seq| seq.iter().chain(std::iter::once(&'A')).copied().collect::<Vec<char>>()).collect::<Vec<Vec<char>>>();
     //This also changed. It made little difference in part one, but now i want full paths with A at the end.
     result.into_iter().filter(|sequence| !panic_inducing_sequence(coords_start, coords_panic, sequence)).collect()
 }
@@ -98,17 +98,17 @@ fn to_user_pad_sequence_len(cache: &Cache, sequence: &[char], phase: u64) -> u64
 fn shortest_robot_sequence_len(cache: &Cache, sequences_map: &HashMap<(&char, &char), Vec<Vec<char>>>, from: char, to: char, phase: u64) -> u64{
 
     let one_way = sequences_map
-    .get(&(&from, &to))
-    .unwrap()
-    .into_iter()
-    .map(
-        |seq|
-        to_user_pad_sequence_len(cache, seq, phase))
-    .collect::<Vec<u64>>();
-    one_way
-        .into_iter()
-        .min()
+        .get(&(&from, &to))
         .unwrap()
+        .iter()
+        .map(
+            |seq|
+            to_user_pad_sequence_len(cache, seq, phase))
+        .collect::<Vec<u64>>();
+        one_way
+            .into_iter()
+            .min()
+            .unwrap()
 }
 
 fn complexity(sequence_length: u64, code: &[char]) -> u64{
@@ -130,7 +130,7 @@ pub fn solution(input: String) -> String {
         for end in arrows.iter(){
             sequences_map
                 .insert(
-                    (&start, &end), 
+                    (start, end), 
                     vailable_sequences(*start, *end));
         }
     }    
@@ -138,7 +138,7 @@ pub fn solution(input: String) -> String {
         for end in digits.iter(){
             sequences_map
                 .insert(
-                    (&start, &end), 
+                    (start, end), 
                     vailable_sequences(*start, *end));
         }
     }    
