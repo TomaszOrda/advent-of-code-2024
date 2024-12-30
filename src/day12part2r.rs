@@ -87,7 +87,7 @@ fn outer_corners(plant:&Plant, plant_grid:&Grid<Plant>) -> u32{
 
 fn root_bfs(plant_grid: &mut Grid<Plant>, root:(usize, usize)){
     if plant_grid.get(root.0, root.1).unwrap().rooted {
-        return ()
+        return
     }
     let root_kind = plant_grid.get(root.0, root.1).unwrap().kind;
     let mut seen = vec![root];
