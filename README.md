@@ -1,8 +1,8 @@
 A record of my solutions for 2024 [Advent Of Code](https://adventofcode.com/2024 "AoC").
 
-Solutions for each day and task are in separate files. Sumbmited (unoptimized) solutions are placed in a folder named old.
+Solutions for each day and task are in separate files. Sumbmited (unoptimized) solutions are placed in `\src\Old\`.
 
-To run the solution input name of the file in mod_day_and_task! macro inside main.rs.
+To run the solution input name of the file in `mod_day_and_task!` macro inside `main.rs`.
 
 Data for each task can be accessed through the site.
 
