@@ -16,7 +16,7 @@ fn is_possible(equation: &[u64]) -> bool{
     if equation.len() == 2{
         return equation[0] == equation[1]
     }
-    vec![|a,b| a+b, |a,b| a*b, concatenate].iter()
+    [|a,b| a+b, |a,b| a*b, concatenate].iter()
                                     .map(
                     |f| 
                     {   

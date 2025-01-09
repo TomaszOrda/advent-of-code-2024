@@ -29,7 +29,7 @@ fn print_grid(grid: &str, width:usize){
 }
 fn contains_tree(grid: &str, width:usize) -> bool{
     let re = Regex::new(&format!(r"#.{{{}}}###.{{{}}}#####", width-2, width-4)).unwrap(); 
-    re.is_match(&grid)
+    re.is_match(grid)
 }
 
 pub fn solution(input: String) -> String { 

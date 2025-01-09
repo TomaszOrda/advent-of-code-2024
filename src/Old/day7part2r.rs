@@ -6,8 +6,7 @@ fn concatenate(left:u64, right:u64) -> u64{
 
 fn is_possible(equation: Vec<u64>) -> u64{
     let mut stack = vec![equation];
-    while stack.len()>0{
-        let eq = stack.pop().unwrap();
+    while let Some(eq) = stack.pop(){
         if eq.len()==2 {
             if eq[0] == eq[1]{
                 return eq[0]
@@ -16,7 +15,7 @@ fn is_possible(equation: Vec<u64>) -> u64{
             }
         }
 
-        vec![|a,b| a+b, |a,b| a*b, concatenate].iter()
+        [|a,b| a+b, |a,b| a*b, concatenate].iter()
                                    .map(
                     |f| 
                     {
@@ -37,5 +36,5 @@ pub fn solution(input: String) -> String {
                                         line.split_whitespace().map(|s| s.trim_end_matches(':').parse::<u64>().unwrap()).collect::<Vec<u64>>())
                                     .collect();
 
-    format!("{:?}",equations.into_iter().map(|e| is_possible(e)).sum::<u64>() )
+    format!("{:?}",equations.into_iter().map(is_possible).sum::<u64>() )
 }

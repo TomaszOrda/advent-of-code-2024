@@ -25,10 +25,10 @@ fn directional_pad_to_coords(key:char) -> (u32, u32){
     }
 }
 fn all_sequences(seq_a: Vec<char>, seq_b: Vec<char>) -> Vec<Vec<char>>{
-    if seq_a.len() == 0{
+    if seq_a.is_empty(){
         return vec![seq_b]
     }
-    if seq_b.len() == 0{
+    if seq_b.is_empty(){
         return vec![seq_a]
     }
     let mut left: Vec<Vec<char>> = all_sequences(seq_a[1..].to_vec(), seq_b.clone()).iter_mut().map(|v| {v.insert(0, seq_a[0]); v.clone()}).collect();
@@ -44,7 +44,7 @@ fn panic_inducing_sequence(coords_start: (u32, u32), coords_panic: (u32, u32), s
         return false
     }
     match sequence[0]{
-        '>' => return false,
+        '>' => false,
         '<' => panic_inducing_sequence((coords_start.0-1, coords_start.1  ), coords_panic, &sequence[1..] ),
         'v' => panic_inducing_sequence((coords_start.0  , coords_start.1+1), coords_panic, &sequence[1..] ),
         '^' => panic_inducing_sequence((coords_start.0  , coords_start.1-1), coords_panic, &sequence[1..] ),
@@ -97,13 +97,13 @@ fn to_user_pad_sequence(cache: &Cache, sequence: &[char], phase: u32) -> Vec<cha
 fn shortest_robot_sequence(cache: &Cache, sequences_map: &HashMap<(&char, &char), Vec<Vec<char>>>, from: char, to: char, phase: u32) -> Vec<char>{
     let sequence = sequences_map.get(&(&from, &to)).unwrap();
     sequence
-        .into_iter()
+        .iter()
         .min_by(
             |seq1, seq2| 
-            to_user_pad_sequence(cache, &seq1, phase).len().cmp(&to_user_pad_sequence(cache, &seq2, phase).len())
+            to_user_pad_sequence(cache, seq1, phase).len().cmp(&to_user_pad_sequence(cache, seq2, phase).len())
         )
         .unwrap()
-        .into_iter()
+        .iter()
         .chain(std::iter::once(&'A'))
         .copied()
         .collect::<Vec<char>>()
@@ -129,7 +129,7 @@ pub fn solution(input: String) -> String {
         for end in arrows.iter(){
             sequences_map
                 .insert(
-                    (&start, &end), 
+                    (start, end), 
                     vailable_sequences(*start, *end));
         }
     }    
@@ -137,7 +137,7 @@ pub fn solution(input: String) -> String {
         for end in digits.iter(){
             sequences_map
                 .insert(
-                    (&start, &end), 
+                    (start, end), 
                     vailable_sequences(*start, *end));
         }
     }    

@@ -41,9 +41,11 @@ fn bfs(root_plant:&Plant, plant_grid:&Grid<Plant>, corners: &Grid<u32>, values: 
         value += corners.get(plant.x, plant.y).unwrap();
         for v in [(-1,0), (0,-1), (0,1), (1,0)]{
             let neighbour = plant_grid.get((plant.x as i32 + v.0) as usize, (plant.y as i32 + v.1) as usize);
-            if neighbour.is_some() && !seen.contains(&neighbour.unwrap()) && neighbour.unwrap().kind == plant.kind{
-                stack.push(neighbour.unwrap());
-                seen.push(neighbour.unwrap());
+            if let Some(neighbour_unwrap) = neighbour{
+                if  !seen.contains(&neighbour.unwrap()) && neighbour.unwrap().kind == plant.kind{
+                    stack.push(neighbour_unwrap);
+                    seen.push(neighbour_unwrap);
+                }
             }
         }
     }

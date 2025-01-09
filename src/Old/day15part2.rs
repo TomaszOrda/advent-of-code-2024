@@ -37,7 +37,7 @@ impl Map {
                 self.grid[step2.0][step2.1] = self.grid[step1.0][step1.1];
                 self.grid[step1.0][step1.1] = self.grid[pos.0][pos.1];
                 self.grid[pos.0][pos.1] = '.';
-                return Some(())
+                Some(())
             },
             '[' | ']' => {
                 match self.push_box_side(step2, direction){
@@ -45,13 +45,13 @@ impl Map {
                         self.grid[step2.0][step2.1] = self.grid[step1.0][step1.1];
                         self.grid[step1.0][step1.1] = self.grid[pos.0][pos.1];
                         self.grid[pos.0][pos.1] = '.';
-                        return Some(())
+                        Some(())
                     }
                     None => None
                 }
             },
             '#' => {
-                return None
+                None
             },
             _   => panic!("Unexpected token on the map!")
         }
@@ -61,7 +61,7 @@ impl Map {
         let (left, right) = (self.grid[stepy][x],self.grid[stepy][x+1]);
 
         (match left {
-            ']' => self.can_push_box(x-1 as usize,  stepy, direction ),
+            ']' => self.can_push_box(x-1_usize,  stepy, direction ),
             '[' => self.can_push_box(x,  stepy, direction ),
             '.' => true,
             '#' => false,
@@ -69,7 +69,7 @@ impl Map {
         }) 
         &&
         (match right {
-            '[' => self.can_push_box((x +1) as usize,  stepy, direction ),
+            '[' => self.can_push_box(x +1,  stepy, direction ),
             ']' => true,
             '.' => true,
             '#' => false,
@@ -81,7 +81,7 @@ impl Map {
         let (left, right) = (self.grid[stepy][x],self.grid[stepy][x+1]);
         // dbg!(x,x+1,y,left, right);
         match left {
-            ']' => self.push_box_top_down(x-1 as usize, stepy, direction ),
+            ']' => self.push_box_top_down(x-1_usize, stepy, direction ),
             '[' => self.push_box_top_down(x,stepy, direction ),
             '.' => (),
             '#' => panic!("Wall encountered"),
@@ -106,35 +106,25 @@ impl Map {
             '.' => self.robot = new_pos,
             '[' => match direction{
                 Direction::E | Direction::W  => {
-                    match self.push_box_side(new_pos, direction) {
-                        Some(()) => self.robot = new_pos,
-                        None => ()
-                    }
+                    if let Some(()) = self.push_box_side(new_pos, direction) { self.robot = new_pos }
                 },
                 
                 Direction::N | Direction::S  => {
                     if self.can_push_box(new_pos.1, new_pos.0, direction){
                         self.push_box_top_down(new_pos.1, new_pos.0, direction);
                         self.robot = new_pos;
-                    }else{
-                        ()
                     }
                 } 
             }
             ']' => match direction{
                 Direction::E | Direction::W  => {
-                    match self.push_box_side(new_pos, direction) {
-                        Some(()) => self.robot = new_pos,
-                        None => ()
-                    }
+                    if let Some(()) = self.push_box_side(new_pos, direction) { self.robot = new_pos }
                 },
                 
                 Direction::N | Direction::S  => {
                     if self.can_push_box(new_pos.1-1, new_pos.0, direction){
                         self.push_box_top_down(new_pos.1-1, new_pos.0, direction);
                         self.robot = new_pos;
-                    }else{
-                        ()
                     }
                 } 
             }
@@ -149,13 +139,12 @@ impl Map {
     fn sum_of_gps_coordinates(&self) -> u32{
         self.grid.iter()
                  .enumerate()
-                 .map(
+                 .flat_map(
                     |line| 
                     line.1.iter()
                           .enumerate()
                           .filter(|c| c.1==&'[')
                           .map(move |c| Self::gps_coordinate(line.0, c.0)))
-                 .flatten()
                  .sum::<u32>()
     }
 }
@@ -187,7 +176,7 @@ pub fn solution(input: String) -> String {
         robot: (robot_flat / grid[0].len() , robot_flat % grid[0].len()),
         grid,
     };
-    moves.iter().for_each(|direction| map.apply_move(&direction));
+    moves.iter().for_each(|direction| map.apply_move(direction));
     format!("{:?}",map.sum_of_gps_coordinates())
     // format!("{:?}",map.grid.iter().map(|line| line.iter().collect::<String>()).collect::<Vec<String>>().join("\n")) 
 } 
