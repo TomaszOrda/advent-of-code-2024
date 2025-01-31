@@ -1,8 +1,22 @@
-// There is an assumption that the adder is design as expected, using xors, ands and one or for carry.
-// That doesnt hold for the test case.
-//
-// In case of the solution not working one is supposed to develop the repair_swaps function further. For me it was enough to cover only two cases.
-//
+// There is an assumption that the adder is design as expected, using xors, ands and one or for carry (that doesnt hold for the test case). Look at the diagram below.
+/*
+x_i ──────┬────►┌───┐                                 
+          │     │XOR│────┬──────►┌───┐                
+y_i ───┬───────►└───┘    │       │XOR│─────────► z_i  
+       │  │              │  ┌───►└───┘                
+       │  │              │  │                         
+       │  │              │  │                         
+       │  │              │  │                         
+       │  └────►┌───┐    └──────►┌───┐                
+       │        │AND│───┐   │    │AND│─┐              
+       └───────►└───┘   │   ├───►└───┘ └─►┌──┐        
+                        │   │             │OR│─► c_i+1
+                        └────────────────►└──┘        
+                            │                         
+c_i ────────────────────────┘                         
+*/
+// In case of the solution not working, one is supposed to develop the repair_swaps function further. For me it was enough to cover only two cases.
+// 
 // Originally I have solved this problem by hand (while also writing a lot of code to be able to test swaps and pinpoint problematic wires).
 
 use std::collections::HashMap;
